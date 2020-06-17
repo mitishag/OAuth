@@ -1,0 +1,79 @@
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Title</title>
+  <!--[if IE]><![endif]-->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+ </head>
+ <body>
+ SAMPLE FB LOGIN
+ <div id="fb-root"></div>
+ 
+<script>
+var FBDemo = {};
+$(document).ready(function(){
+  FBDemo.appId = 169894697763028;
+  FBDemo.redirectUrl = "https://localhost:4200/assets/FBLogin.html";
+  });
+  
+  window.fbAsyncInit = function() {
+
+    FB.init({
+      appId      : 169894697763028,//'{your-app-id}',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v7.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+	
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   
+   
+
+
+function statusChangeCallback(response) {
+  console.log(response);
+}
+
+        function login() {
+            top.location.href = "https://www.facebook.com/dialog/oauth?client_id=" + FBDemo.appId + "&redirect_uri=" + encodeURIComponent (FBDemo.redirectUrl) + "&scope=public_profile,email";
+	
+        }
+
+        function logout() {
+            FB.logout(function(response) {
+              // user is now logged out
+			  console.log(response);
+            });
+        }
+		function getLoginStatus(){
+        FB.getLoginStatus(function(response){
+		console.log(response);
+		alert(response.status);
+		});
+
+		}
+</script>
+
+
+<br>
+        <button onclick="javascript:login();">Login Facebook</button>
+
+        <br>
+
+        <button onclick="javascript:logout();">Logout from Facebook</button>
+        <br>
+
+        <button onclick="javascript:getLoginStatus();">Get FB Login status</button>
+ </body>
